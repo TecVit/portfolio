@@ -63,7 +63,7 @@ export default function Landing() {
       <section className="content-landing">
         <div className="text">
           <h2>👋 É a TecVit, sua parceira de projetos e softwares!</h2>
-          <h1>Seu SaaS complexo, experiência sem esforço.</h1>
+          <h1 className="title">Seu SaaS complexo, <br/> experiência sem esforço.</h1>
           <p>Simplifique produtos SaaS complexos com um design limpo e fácil de usar que impulsiona o envolvimento do usuário e o crescimento dos negócios.</p>
           <div className="btns">
             <Link className="btn-black" href="#">Entrar em Contato</Link>
@@ -86,7 +86,7 @@ export default function Landing() {
           <div className="tag">
             <p>Ferramentas / Frameworks Usadas</p>
           </div>
-          <h1>Site com as melhores ferramentas do mercado</h1>
+          <h1 className="title">Site com as melhores <br /> ferramentas do mercado</h1>
           <p>Tenha um site moderno, rápido e pronto para converter mais clientes.</p>
         </div>
 

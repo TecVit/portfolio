@@ -10,7 +10,7 @@
 /* NAVBAR */
 .container-navbar {
     width: 690px;
-    max-width: 95%;
+    max-width: 92.5%;
     height: 70px;
     border-radius: 50px;
     background: var(--black);
@@ -75,7 +75,7 @@
 }
 
 .container-landing .content-landing .text {
-    width: 95%;
+    width: 92.5%;
     max-width: 600px;
     height: auto;
     display: flex;
@@ -87,6 +87,7 @@
 .container-landing .content-landing .text h2 {
     font-size: 16px;
     font-weight: 500;
+    text-align: center;
 }
 
 .container-landing .content-landing .text h1 {
@@ -118,12 +119,12 @@
 }
 
 .container-landing .content-landing .text .btns a {
-    font-size: 16px;
-    padding: 16px 24px;
+    font-size: 15.5px;
+    padding: 16px 22px;
 }
 
 .container-landing .content-landing .privileged {
-    width: 95%;
+    width: 92.5%;
     max-width: 600px;
     height: auto;
     display: flex;
@@ -172,7 +173,7 @@
 }
 
 .container-landing .content-frameworks .text {
-    width: 95%;
+    width: 92.5%;
     max-width: 600px;
     height: auto;
     display: flex;
@@ -216,7 +217,7 @@
 }
 
 .container-landing .content-frameworks .list {
-    width: 95%;
+    width: 92.5%;
     max-width: 1000px;
     height: auto;
     display: flex;
@@ -368,16 +369,32 @@
 /* MOBILE */
 @media (max-width: 800px) {
     .container-navbar {
-        width: 95%;
+        width: 92.5%;
     }
 
     .container-navbar .content-navbar .links {
         display: none;
     }
-    
-    h1 {
+
+    .title {
         font-size: 34px !important;
         line-height: 42px !important;
+    }
+
+    @media (max-width: 420px) {
+        .container-navbar .content-navbar {
+            justify-content: center;    
+        }
+
+        .container-navbar .content-navbar img {
+            width: 90%;
+            max-width: 200px;
+            height: auto;
+        }
+
+        .container-navbar .content-navbar .btns {
+            display: none;           
+        }
     }
 }
 
