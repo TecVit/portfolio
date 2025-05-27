@@ -137,8 +137,7 @@ export default function Landing() {
           <section className="row"></section>
           <section className="bottom">
             <p>&copy; 2025 TecVit. Todos direitos reservados.</p>
-            <p>Criado por <Link href="https://instagram.com/vitin021y">@vitin021y</Link>
-            </p>
+            <p>Criado por <Link href="https://instagram.com/vitin021y">@vitin021y</Link></p>
           </section>
         </div>
       </footer>
