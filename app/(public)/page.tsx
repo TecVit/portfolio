@@ -15,7 +15,7 @@ import Webflow from '@/app/assets/images/svgs/webflow.svg';
 
 import Link from "next/link";
 import './style.css';
-import { LinkIcon } from "lucide-react";
+import { BadgeCheck, BadgeX, LinkIcon } from "lucide-react";
 
 export default function Landing() {
 
@@ -45,6 +45,51 @@ export default function Landing() {
       text: "Usado para montar páginas com visual atrativo, facilitando a navegação dos seus clientes.",
       url: "https://webflow.com/"
     }
+  ];
+
+  const plans = [
+    {
+      name: "Básico",
+      price_annually: 199.99,
+      description: "Não importa o que você precise, desde ajuda rápida até grandes problemas, estamos aqui para ajudar.",
+      features: [
+        "Site com 5 páginas",
+        "Suporta até 1000 usuários simultâneos",
+        "1 GB de armazenamento",
+        "12 mêses de hospedagem"
+      ],
+      limitations: [
+        "Banco de Dados",
+        "Dashboard do Site",
+      ],
+    },
+    {
+      name: "Padrão",
+      price_annually: 299.99,
+      description: "Não importa o que você precise, desde ajuda rápida até grandes problemas, estamos aqui para ajudar.",
+      features: [
+        "Site com 10 páginas",
+        "Dashboard do Site",
+        "Suporta até 3000 usuários simultâneos",
+        "2 GB de armazenamento",
+        "12 mêses de hospedagem",
+        "Banco de Dados",
+      ],
+    },
+    {
+      name: "Premium",
+      price_annually: 399.99,
+      description: "Não importa o que você precise, desde ajuda rápida até grandes problemas, estamos aqui para ajudar.",
+      features: [
+        "Site Completo",
+        "Dashboard Personalizado",
+        "Suporta até 10.000 usuários simultâneos",
+        "10 GB de armazenamento",
+        "12 mêses de hospedagem",
+        "Otimização SEO avançada",
+        "Integração com redes sociais, formulário, e-mail marketing",
+      ],
+    },
   ];
   
   const mensagemContato = encodeURIComponent(
@@ -100,6 +145,7 @@ Fico no aguardo para conversarmos melhor e iniciarmos esse projeto!`
         </div>
       </section>
 
+      {/* Frameworks */}
       <section id="ferramentas" className="content-frameworks">
         
         <div className="text">
@@ -122,6 +168,45 @@ Fico no aguardo para conversarmos melhor e iniciarmos esse projeto!`
                   Website
                 </Link>
               </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Plans */}
+      <section id="plans" className="content-plans">
+        
+        <div className="text">
+          <div className="tag">
+            <p>Planos Disponíveis</p>
+          </div>
+          <h1 className="title">Design sob demanda. <br /> Sem compromisso.</h1>
+          <p>Começar conosco é um processo fácil graças aos nossos pacotes simples</p>
+        </div>
+
+        <ul className="plans">
+          {plans.map((plan, i) => (
+            <li key={i} className="plan">
+              <h2>{plan.name}</h2>
+              <h1>{((plan.price_annually).toLocaleString('pt-BR',  { style: 'currency', currency: 'BRL' }))} <span>/ Anual</span></h1>
+              <p>{plan.description}</p>
+              <button className={`link ${i % 2 != 0 ? 'black' : ''}`}>Entrar em Contato</button>
+              <ul className="features">
+                {plan.features && plan.features.length > 0 && plan.features.map((feature, j) => (
+                  <li className="item" key={`${i}-${j}`}>
+                    <BadgeCheck className="icon green" />
+                    <p>{feature}</p>
+                  </li>
+                ))}
+              </ul>
+              <ul className="features">
+                {plan.limitations && plan.limitations.length > 0 && plan.limitations.map((feature, j) => (
+                  <li className="item" key={`${i}-${j}`}>
+                    <BadgeX className="icon red" />
+                    <p>{feature}</p>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))}
         </ul>

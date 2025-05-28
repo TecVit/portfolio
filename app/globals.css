@@ -19,8 +19,13 @@
   --gray-one: #ababab;
   --gray-two: #d3d3d3;
   --gray-three: #ececec;
-  --white: #fdfdfd;
+  --white: #fefefe;
+  --backgroundWhite: #f8f9fa;
   --blue: #2956ed;
+
+  /* Colors */
+  --green: #28a35b;
+  --red: #e74c3c;
 
   --font-astron-regular: 'AstronRegular', sans-serif;
   --font-astron-light: 'AstronLight', sans-serif;
@@ -56,7 +61,7 @@ a {
 
 /* BTNS */
 
-*.btn-white {
+.btn-white {
   width: auto;
   height: auto;
   border-radius: 50px;
@@ -68,12 +73,12 @@ a {
   font-weight: 700;
   scale: 1;
   transition: all .3s;
-} *.btn-white:focus,
-*.btn-white:hover {
+} .btn-white:focus,
+.btn-white:hover {
   scale: 0.95;
 }
 
-*.btn-black {
+.btn-black {
   width: auto;
   height: auto;
   border-radius: 50px;
@@ -87,13 +92,12 @@ a {
   text-decoration: none;
   transition: all .3s;
   box-shadow: inset 0 1px 1px #ffffff40;
-  scale: 1;
-} *.btn-black:focus,
-*.btn-black:hover {
+} .btn-black:focus,
+.btn-black:hover {
   scale: 0.95;
 }
 
-*.btn-gray {
+.btn-gray {
   width: max-content;
   height: auto;
   border-radius: 50px;
@@ -109,12 +113,12 @@ a {
   align-items: center;
   margin: 0px;
   transition: all .3s;
-} *.btn-gray:focus,
-*.btn-gray:hover {
+} .btn-gray:focus,
+.btn-gray:hover {
   border: 1px solid var(--gray-one);
 }
 
-*.btn-gray .icon {
+.btn-gray .icon {
   width: 15px;
   height: 15px;
   margin: 0px 6px 0px 0px;
