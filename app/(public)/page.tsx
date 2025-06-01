@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState } from "react";
 import Image from "next/image";
 import Logo from '@/app/assets/images/tecvit-softwares.png';
 import TecVit from '@/app/assets/images/tecvit.png';
@@ -15,7 +16,7 @@ import Webflow from '@/app/assets/images/svgs/webflow.svg';
 
 import Link from "next/link";
 import './style.css';
-import { BadgeCheck, BadgeX, LinkIcon } from "lucide-react";
+import { BadgeCheck, BadgeX, LinkIcon, Plus, X } from "lucide-react";
 
 export default function Landing() {
 
@@ -23,40 +24,46 @@ export default function Landing() {
     {
       image: Firebase,
       text: "Vai cuidar do login dos clientes, dados dos produtos e de todo o sistema do site.",
-      url: "https://firebase.google.com"
+      url: "https://firebase.google.com",
+      color: "#FFA611",
     },
     {
       image: Canva,
       text: "Usado para criar as imagens e artes do seu site e redes sociais com visual profissional.",
-      url: "https://canva.com"
+      url: "https://canva.com",
+      color: "#12acd2",
     },
     {
       image: Hostinger,
       text: "É onde seu site ficará hospedado, garantindo que ele funcione rápido e sem cair.",
-      url: "https://hostinger.com"
+      url: "https://hostinger.com",
+      color: "#6747c6",
     },
     {
       image: NextJS,
       text: "É a base do seu site, garantindo que ele seja rápido, moderno e apareça bem no Google.",
-      url: "https://nextjs.org"
+      url: "https://nextjs.org",
+      color: "#aeaeae",
     },
     {
       image: Webflow,
       text: "Usado para montar páginas com visual atrativo, facilitando a navegação dos seus clientes.",
-      url: "https://webflow.com/"
+      url: "https://webflow.com/",
+      color: "#4353ff",
     }
   ];
 
   const plans = [
     {
       name: "Básico",
-      price_annually: 199.99,
-      description: "Não importa o que você precise, desde ajuda rápida até grandes problemas, estamos aqui para ajudar.",
+      price_annually: 659.99,
+      description: "Ideal para quem precisa marcar presença online com simplicidade e eficiência.",
       features: [
         "Site com 5 páginas",
         "Suporta até 1000 usuários simultâneos",
         "1 GB de armazenamento",
-        "12 mêses de hospedagem"
+        "12 meses de hospedagem",
+        "Registro de domínio incluso (.com.br ou alternativo)"
       ],
       limitations: [
         "Banco de Dados",
@@ -64,33 +71,70 @@ export default function Landing() {
       ],
     },
     {
-      name: "Padrão",
-      price_annually: 299.99,
-      description: "Não importa o que você precise, desde ajuda rápida até grandes problemas, estamos aqui para ajudar.",
-      features: [
-        "Site com 10 páginas",
-        "Dashboard do Site",
-        "Suporta até 3000 usuários simultâneos",
-        "2 GB de armazenamento",
-        "12 mêses de hospedagem",
-        "Banco de Dados",
-      ],
-    },
-    {
       name: "Premium",
-      price_annually: 399.99,
+      price_annually: 1299.99,
       description: "Não importa o que você precise, desde ajuda rápida até grandes problemas, estamos aqui para ajudar.",
       features: [
         "Site Completo",
         "Dashboard Personalizado",
         "Suporta até 10.000 usuários simultâneos",
         "10 GB de armazenamento",
-        "12 mêses de hospedagem",
+        "12 meses de hospedagem",
         "Otimização SEO avançada",
         "Integração com redes sociais, formulário, e-mail marketing",
+        "Registro de domínio incluso (.com.br ou alternativo)"
+      ],
+    },
+    {
+      name: "Padrão",
+      price_annually: 899.99,
+      description: "Do zero ao online com um site bonito, rápido e pronto pra vender.",
+      features: [
+        "Site com 10 páginas",
+        "Dashboard do Site",
+        "Suporta até 3000 usuários simultâneos",
+        "2 GB de armazenamento",
+        "12 meses de hospedagem",
+        "Banco de Dados",
+        "Registro de domínio incluso (.com.br ou alternativo)"
       ],
     },
   ];
+
+  type TypeFAQ = {
+    question: string;
+    answer: string;
+    status: boolean;
+  }
+
+  const [faqs, setFaqs] = useState<TypeFAQ[]>([
+    {
+      question: "O que está incluso no desenvolvimento do meu site?",
+      answer: "Você recebe um site completo, responsivo, com hospedagem, domínio, painel de controle (dependendo do plano) e integração com redes sociais, formulário de contato e mais.",
+      status: false,
+    },
+    {
+      question: "Qual é o prazo médio para entrega do site?",
+      answer: "O prazo depende da complexidade do projeto, mas geralmente varia entre 7 a 20 dias úteis após alinhamento e envio dos materiais.",
+      status: false,
+    },
+    {
+      question: "Preciso saber programar para gerenciar meu site?",
+      answer: "Não! Fornecemos um painel simples e intuitivo (nos planos Padrão e Premium) onde você mesmo pode atualizar conteúdos, produtos e informações.",
+      status: false,
+    },
+    {
+      question: "Vocês ajudam com o design e identidade visual?",
+      answer: "Sim, usamos ferramentas como o Canva para desenvolver artes, imagens e um layout profissional para seu site e redes sociais.",
+      status: false,
+    },
+    {
+      question: "Posso contratar só o site e depois evoluir para um SaaS?",
+      answer: "Com certeza! Podemos começar com um site institucional e depois transformá-lo em uma plataforma SaaS com login, banco de dados e funcionalidades avançadas.",
+      status: false,
+    },
+  ]);
+
   
   const mensagemContato = encodeURIComponent(
 `Olá! Gostaria de criar um SaaS personalizado com vocês.
@@ -158,7 +202,8 @@ Fico no aguardo para conversarmos melhor e iniciarmos esse projeto!`
 
         <ul className="list">
           {frameworks.map((item, i) => (
-            <li key={i} className="item">
+            <li style={{ "--card-color": item.color } as React.CSSProperties} key={i} className="item">
+              <div className="color"></div>
               <Image src={item.image} alt={`${ i }º Logo`} />
               <p>{item.text}</p>
               <div className="row"></div>
@@ -174,7 +219,7 @@ Fico no aguardo para conversarmos melhor e iniciarmos esse projeto!`
       </section>
 
       {/* Plans */}
-      <section id="plans" className="content-plans">
+      <section id="planos" className="content-plans">
         
         <div className="text">
           <div className="tag">
@@ -212,6 +257,44 @@ Fico no aguardo para conversarmos melhor e iniciarmos esse projeto!`
         </ul>
       </section>
 
+      {/* FAQs */}
+      <section id="faqs" className="content-faqs">
+        
+        <div className="text">
+          <div className="tag">
+            <p>FAQs</p>
+          </div>
+          <h1 className="title">Perguntas Frequentes</h1>
+          <p>Entenda melhor como funciona o desenvolvimento e o que está incluso.</p>
+        </div>
+
+        <ul className="faqs">
+          {faqs.map((faq, i) => (
+            <li key={i} className="faq">
+              <div onClick={() => setFaqs(prev => {
+                let list = [...prev];
+                let obj = { ...list[i] };
+                obj.status = !obj.status;
+                list[i] = obj;
+                return list;
+              })} className="top">
+                <h1>{faq.question}</h1>
+                {faq.status ? (
+                  <X className="icon" />
+                ) : (
+                  <Plus className="icon" />
+                )}
+              </div>
+              {faq.status && (
+                <div className="bottom">
+                  <p>{faq.answer}</p>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* Footer */}
       <footer className="container-footer">
         <div className="content-footer">
@@ -229,9 +312,9 @@ Fico no aguardo para conversarmos melhor e iniciarmos esse projeto!`
               </li>
               <li className="item">
                 <h1>Planos</h1>
-                <Link href="/#">Basic</Link>
-                <Link href="/#projetos">Standard</Link>
-                <Link href="/#faqs">Premium</Link>
+                <Link href="/#planos">Básico</Link>
+                <Link href="/#planos">Padrão</Link>
+                <Link href="/#planos">Premium</Link>
               </li>
               <li className="item">
                 <h1>Redes Sociais</h1>
