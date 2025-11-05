@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Logo from '@/app/assets/images/tecvit-softwares.png';
+import Logo from '../assets/images/tecvit-softwares.png';
 import TecVit from '@/app/assets/images/tecvit.png';
 import Leticia from '@/app/assets/images/privileged/leticia.png';
 import PedidoFacil from '@/app/assets/images/privileged/pedidofacil.png';
@@ -12,7 +12,7 @@ import Canva from '@/app/assets/images/svgs/canva.svg';
 import Hostinger from '@/app/assets/images/svgs/hostinger.svg';
 import NextJS from '@/app/assets/images/svgs/nextjs.svg';
 import Webflow from '@/app/assets/images/svgs/webflow.svg';
-
+import MercadoPago from '@/app/assets/images/svgs/logo-mercado-pago.svg';
 
 import Link from "next/link";
 import './style.css';
@@ -38,6 +38,12 @@ export default function Landing() {
       text: "É onde seu site ficará hospedado, garantindo que ele funcione rápido e sem cair.",
       url: "https://hostinger.com",
       color: "#6747c6",
+    },
+    {
+      image: MercadoPago,
+      text: "Responsável pelos pagamentos e recebimentos do seu site, com segurança e praticidade.",
+      url: "https://mercadopago.com.br",
+      color: "#16afbdff",
     },
     {
       image: NextJS,
