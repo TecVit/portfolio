@@ -1,5 +1,7 @@
 'use client';
 
+import './style.css';
+
 import React, { useState } from "react";
 import Image from "next/image";
 import Logo from '../assets/images/tecvit-softwares.png';
@@ -15,7 +17,6 @@ import Webflow from '@/app/assets/images/svgs/webflow.svg';
 import MercadoPago from '@/app/assets/images/svgs/logo-mercado-pago.svg';
 
 import Link from "next/link";
-import './style.css';
 import { BadgeCheck, BadgeX, LinkIcon, Plus, X } from "lucide-react";
 
 export default function Landing() {
@@ -62,47 +63,59 @@ export default function Landing() {
   const plans = [
     {
       name: "Básico",
-      price_annually: 659.99,
-      description: "Ideal para quem precisa marcar presença online com simplicidade e eficiência.",
+      price_monthly: 79.99,
+      commission: 4,
+      description: "Ideal para quem quer começar a vender online com baixo risco e custo reduzido.",
       features: [
-        "Site com 5 páginas",
-        "Suporta até 1000 usuários simultâneos",
-        "1 GB de armazenamento",
-        "12 meses de hospedagem",
-        "Registro de domínio incluso (.com.br ou alternativo)"
+        "Site e-commerce",
+        "Checkout online",
+        "Cadastro de produtos",
+        "Controle de pedidos",
+        "Relatórios básicos",
+        "Integração com WhatsApp",
+        "Suporte padrão",
+        "Hospedagem inclusa"
       ],
       limitations: [
-        "Banco de Dados",
-        "Dashboard do Site",
+        "Relatórios avançados",
+        "Personalização visual",
+        "Multiusuários"
       ],
     },
     {
-      name: "Premium",
-      price_annually: 1299.99,
-      description: "Não importa o que você precise, desde ajuda rápida até grandes problemas, estamos aqui para ajudar.",
+      name: "Profissional",
+      price_monthly: 99.99,
+      commission: 3,
+      description: "Equilíbrio perfeito entre custo e crescimento. O plano mais escolhido.",
       features: [
-        "Site Completo",
-        "Dashboard Personalizado",
-        "Suporta até 10.000 usuários simultâneos",
-        "10 GB de armazenamento",
-        "12 meses de hospedagem",
-        "Otimização SEO avançada",
-        "Integração com redes sociais, formulário, e-mail marketing",
-        "Registro de domínio incluso (.com.br ou alternativo)"
+        "Site e-commerce completo",
+        "Checkout online",
+        "Dashboard completo",
+        "Cadastro ilimitado de produtos",
+        "Controle de estoque",
+        "Cupons de desconto",
+        "Relatórios de vendas",
+        "Integração com WhatsApp",
+        "Suporte prioritário",
+        "Hospedagem inclusa"
       ],
     },
     {
-      name: "Padrão",
-      price_annually: 899.99,
-      description: "Do zero ao online com um site bonito, rápido e pronto pra vender.",
+      name: "Empresarial",
+      price_monthly: 149.99,
+      commission: 1.5,
+      description: "Para lojas com alto volume de vendas que querem pagar menos comissão.",
       features: [
-        "Site com 10 páginas",
-        "Dashboard do Site",
-        "Suporta até 3000 usuários simultâneos",
-        "2 GB de armazenamento",
-        "12 meses de hospedagem",
-        "Banco de Dados",
-        "Registro de domínio incluso (.com.br ou alternativo)"
+        "Site e-commerce completo",
+        "Checkout online",
+        "Dashboard avançado",
+        "Produtos ilimitados",
+        "Controle de estoque avançado",
+        "Relatórios detalhados",
+        "Multiusuários",
+        "Personalização visual",
+        "Suporte premium",
+        "Hospedagem inclusa"
       ],
     },
   ];
@@ -239,9 +252,10 @@ Fico no aguardo para conversarmos melhor e iniciarmos esse projeto!`
           {plans.map((plan, i) => (
             <li key={i} className="plan">
               <h2>{plan.name}</h2>
-              <h1>{((plan.price_annually).toLocaleString('pt-BR',  { style: 'currency', currency: 'BRL' }))} <span>/ Anual</span></h1>
+              <h1>{((plan.price_monthly).toLocaleString('pt-BR',  { style: 'currency', currency: 'BRL' }))} <span>/ Mensal</span></h1>
+              <h3>+ {plan.commission}% por venda online</h3>
               <p>{plan.description}</p>
-              <button className={`link ${i % 2 != 0 ? 'black' : ''}`}>Entrar em Contato</button>
+              <button onClick={() => window.location.href = urlContato} className={`link ${i % 2 != 0 ? 'black' : ''}`}>Entrar em Contato</button>
               <ul className="features">
                 {plan.features && plan.features.length > 0 && plan.features.map((feature, j) => (
                   <li className="item" key={`${i}-${j}`}>

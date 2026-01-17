@@ -357,19 +357,26 @@
 }
 
 .container-landing .content-plans .plans .plan h1 {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 800;
     line-height: unset;
-    margin: 0px 0px 12px 0px;
+    margin: 0px 0px 6px 0px;
 } .container-landing .content-plans .plans .plan h1 span {
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 600;
-}
+} 
 
 .container-landing .content-plans .plans .plan h2 {
     font-size: 22px;
     font-weight: 700;
     line-height: unset;
+    margin: 0px 0px 10px 0px;
+}
+
+.container-landing .content-plans .plans .plan h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--green);
     margin: 0px 0px 10px 0px;
 }
 
@@ -382,8 +389,8 @@
 }
 
 .container-landing .content-plans .plans .plan .link {
-    width: 100%;
-    height: 45px;
+    width: 100% !important;
+    height: 45px !important;
     border-radius: 50px;
     border: 1px solid var(--black);
     background: var(--white);
@@ -549,8 +556,6 @@
     margin: 8px 0px 0px 0px;
 }
 
-
-
 /* Footer */
 .container-footer {
     width: 100%;
@@ -624,7 +629,6 @@
     margin: 25px 0px;
 }
 
-
 /* Footer Bottom */
 .container-footer .content-footer .bottom {
     width: 100%;
@@ -653,8 +657,6 @@
     color: var(--blue);
     margin: 0px;
 }
-
-
 
 /* MOBILE */
 @media (max-width: 800px) {
