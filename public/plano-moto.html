@@ -414,4 +414,120 @@ function renderCal(){
     const el=document.createElement("div");
     el.className="rowline"+(r.done?" done":"");
     el.innerHTML = `
-      <label class="chk"><input type="che
+      <label class="chk"><input type="checkbox" ${r.done?"checked":""} aria-label="Marcar ${p.t} de ${p.d} como guardado"><span class="box"></span></label>
+      <span class="dt">${p.d}</span>
+      <span class="nm">${p.t}${p.n?`<small>${p.n}</small>`:""}</span>
+      <span class="val"><input type="number" step="0.01" value="${r.real}" aria-label="Valor guardado"></span>
+      <span class="acc">${r.done?brl0(acc):"—"}</span>`;
+    el.querySelector("input[type=checkbox]").onchange = e => { r.done = e.target.checked; render(); };
+    el.querySelector("input[type=number]").onchange = e => { r.real = +e.target.value||0; render(); };
+    c.appendChild(el);
+  });
+}
+
+function renderExps(){
+  const c = $("#exps"); c.innerHTML="";
+  S.gastos.forEach((g,i)=>{
+    const el=document.createElement("div"); el.className="exp";
+    el.innerHTML = `<input type="text" value="${g.n.replace(/"/g,"&quot;")}" aria-label="Nome do gasto">
+      <input type="number" step="0.01" value="${g.v}" style="text-align:right" aria-label="Valor do gasto">
+      <button class="del" aria-label="Remover ${g.n}">×</button>`;
+    const [nm,vl,bt] = el.children;
+    nm.onchange = e => { g.n = e.target.value; save(); };
+    vl.onchange = e => { g.v = +e.target.value||0; render(); };
+    bt.onclick = () => { S.gastos.splice(i,1); render(); };
+    c.appendChild(el);
+  });
+}
+
+function lamp(el,txt,state){
+  el.className = "lamp" + (state?" "+state:"");
+  el.querySelector("span:last-child").textContent = txt;
+}
+
+function render(){
+  // knobs
+  $("#k-meta").value=S.meta; $("#k-caixa").value=S.caixa;
+  $("#k-pag").value=S.pag; $("#k-vale").value=S.vale; $("#k-corte").value=S.corte;
+
+  const entra = S.pag + S.vale;
+  const guardo = S.vale + S.corte;
+  const sobra = S.pag - S.corte;
+  const gastos = S.gastos.reduce((a,g)=>a+g.v,0);
+  const folga = sobra - gastos;
+
+  $("#s-entra").textContent = brl(entra);
+  $("#s-guardo").textContent = brl(guardo);
+  $("#s-sobra").textContent = brl(sobra);
+  $("#s-sobra2").textContent = brl(sobra);
+  $("#s-gastos").textContent = brl(gastos);
+  ["#s-folga","#s-folga2"].forEach(id=>{
+    const e=$(id); e.textContent=brl(folga); e.className="v "+(folga<0?"neg":folga<150?"amb":"pos");
+  });
+  $("#s-folga3").textContent = brl(folga*10);
+  $("#s-meta").textContent = brl0(S.meta);
+
+  renderCal(); renderExps();
+
+  const feito = S.caixa + S.rows.reduce((a,r)=> a + (r.mk||!r.done?0:(+r.real||0)), 0);
+  const proj  = S.caixa + S.rows.reduce((a,r)=> a + (r.mk?0:(+r.real||0)), 0);
+  const pct = Math.max(0, Math.min(1, feito/S.meta));
+
+  setOdo(feito);
+  $("#s-proj").textContent = brl0(proj);
+  $("#s-falta").textContent = brl0(Math.max(0,S.meta-feito));
+  $("#s-pct").textContent = Math.round(pct*100)+"%";
+  $("#needle").style.transform = `rotate(${-90 + pct*180}deg)`;
+  const arc=$("#arc"), L=arc.getTotalLength();
+  arc.style.strokeDasharray=L; arc.style.strokeDashoffset=L*(1-pct);
+
+  // lâmpadas
+  const gap = proj - S.meta;
+  if(gap >= 0) lamp($("#l-ritmo"), `Fecha com ${brl0(gap)} de sobra`, "ok");
+  else lamp($("#l-ritmo"), `Faltam ${brl0(-gap)} no plano`, "on");
+
+  if(folga < 0) lamp($("#l-folga"), `Folga negativa · ${brl0(folga)}`, "on");
+  else if(folga < 150) lamp($("#l-folga"), `Folga apertada · ${brl0(folga)}/mês`, "on");
+  else lamp($("#l-folga"), `Folga ${brl0(folga)}/mês`, "ok");
+
+  lamp($("#l-cripto"), "Caixa em cripto · variável sua", "");
+
+  save();
+}
+
+/* ---------- storage ---------- */
+let t=null;
+function save(){
+  clearTimeout(t);
+  t=setTimeout(async()=>{
+    try{ await window.storage.set(KEY, JSON.stringify(S));
+      $("#saved").textContent = "Salvo · " + new Date().toLocaleTimeString("pt-BR");
+    }catch(e){ $("#saved").textContent = "Não deu pra salvar. Suas mudanças valem só nesta aba."; }
+  },350);
+}
+async function load(){
+  try{
+    const r = await window.storage.get(KEY);
+    if(r && r.value){
+      const p = JSON.parse(r.value);
+      if(p && Array.isArray(p.rows) && p.rows.length === PLANO.length) S = p;
+    }
+  }catch(e){ /* primeira vez: sem chave salva */ }
+}
+
+/* ---------- init ---------- */
+["meta","caixa","pag","vale","corte"].forEach(k=>{
+  $("#k-"+k).onchange = e => { S[k] = +e.target.value||0; render(); };
+});
+$("#b-add").onclick = () => { S.gastos.push({n:"Novo gasto", v:0}); render(); };
+$("#b-reset").onclick = () => {
+  S.rows = fresh().rows; render();
+};
+
+buildOdo();
+load().then(()=>{ render(); requestAnimationFrame(()=>render()); });
+window.addEventListener("resize", ()=>{
+  const feito = S.caixa + S.rows.reduce((a,r)=> a + (r.mk||!r.done?0:(+r.real||0)), 0);
+  setOdo(feito);
+});
+</script>
